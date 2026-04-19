@@ -44,6 +44,6 @@ Improve UI and visual feedback
 Add sound effects, design, and polish
 
 ## Challenges / Help Needed
-Improving accuracy and smoothness of touch-based path drawing
-Designing balanced and engaging enemy behaviors
-Optimizing performance for mobile devices
+- Improving accuracy and smoothness of touch-based path drawing
+- Designing balanced and engaging enemy behaviors
+- Optimizing performance for mobile devices
