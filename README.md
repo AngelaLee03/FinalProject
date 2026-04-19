@@ -3,10 +3,10 @@
 **Pathfinders**
 
 ## Team Members & Roles:
-**Aleksa Ocampo** – (Enemy AI & Mechanics)
-**Angela Lee** – (UI/UX & Mobile Input)
-**Katelyn Nguyen** – (Path Drawing System)
-**Estephanie Fernandez** – (Level Design & Testing)
+- **Aleksa Ocampo** –> (Enemy AI & Mechanics)
+- **Angela Lee** –> (UI/UX & Mobile Input)
+- **Katelyn Nguyen** –> (Path Drawing System)
+- **Estephanie Fernandez** –> (Level Design & Testing)
 
 ## Game Description:
 
@@ -20,11 +20,11 @@ As players progress, levels introduce increasingly complex mechanics such as mov
 
 This project incorporates various concepts learned in class as well as additional game aspects, including:
 
--> Player-created pathfinding mechanics
--> Enemy AI behaviors (patrolling, reacting, blocking paths)
--> Collision detection and obstacle interaction
--> Touch-based input for mobile gameplay
--> Level progression and difficulty scaling
+- Player-created pathfinding mechanics
+- Enemy AI behaviors (patrolling, reacting, blocking paths)
+- Collision detection and obstacle interaction
+- Touch-based input for mobile gameplay
+- Level progression and difficulty scaling
 
 ## Platform:
 Mobile (iOS)
