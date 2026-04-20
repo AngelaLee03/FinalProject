@@ -33,15 +33,15 @@ Mobile (iOS)
 The project is currently in the prototype phase.
 
 ## In Progress:
-Basic path drawing system (planned/implemented)
-Initial level design prototype
-Core movement mechanics testing
+- Basic path drawing system (planned/implemented)
+- Initial level design prototype
+- Core movement mechanics testing
 
 ## Next Steps:
-Implement enemy behaviors
-Expand level design and progression
-Improve UI and visual feedback
-Add sound effects, design, and polish
+- Implement enemy behaviors
+- nExpand level design and progression
+- Improve UI and visual feedback
+- Add sound effects, design, and polish
 
 ## Challenges / Help Needed
 * Improving accuracy and smoothness of touch-based path drawing
