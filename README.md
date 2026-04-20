@@ -16,7 +16,7 @@ The core gameplay revolves around creating efficient and safe routes in real tim
 
 As players progress, levels introduce increasingly complex mechanics such as moving hazards, multiple routes, and more advanced enemy behaviors. The ultimate goal is to reach the end point without being caught by an enemy or blocked by the layout/obstacles, advancing through progressively more challenging stages.
 
-## Features & Class Concepts
+## Features & Class Concepts:
 
 This project incorporates various concepts learned in class as well as additional game aspects, including:
 
