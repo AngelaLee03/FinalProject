@@ -11,19 +11,20 @@ public class PathGameManager : MonoBehaviour
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         input.OnPathUpdated += HandlePathUpdated;
         input.OnPathFinished += HandlePathFinished;
     }
 
+    // Rendering the path
     private void HandlePathUpdated(List<Vector3> path)
     {
         currentPath = path;
         pathRenderer.DrawPath(path);
     }
 
+    // Checks if path is valid
     private void HandlePathFinished(List<Vector3> path)
     {
         bool valid = validator.Validate(path);
