@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b803a2a54db9245edb6ceb00799aa408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
-  gameManager: {fileID: 0}
-  player: {fileID: 0}
+  gameManager: {fileID: 321235766}
+  player: {fileID: 1007031711}
   distance: 2
   moveSpeed: 1.5
   hitCooldown: 0.75
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PathGameManager
   drawCam: {fileID: 375093128}
   followCam: {fileID: 323332845}
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 2024187506}
   input: {fileID: 698526665}
   pathRenderer: {fileID: 1685720090}
   validator: {fileID: 427678643}
