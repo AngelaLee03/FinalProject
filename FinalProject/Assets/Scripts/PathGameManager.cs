@@ -1,8 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 
 public class PathGameManager : MonoBehaviour
 {
+    public CinemachineCamera drawCam;
+    public CinemachineCamera followCam;
     public PathInputController input;
     public PathRenderer pathRenderer;
     public PathValidator validator;
@@ -11,10 +14,22 @@ public class PathGameManager : MonoBehaviour
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
 
+    void SwitchToFollowCam()
+    {
+        followCam.Priority = 10;
+        drawCam.Priority = 0;
+    }
+    void SwitchToDrawCam()
+    {
+        drawCam.Priority = 10;
+        followCam.Priority = 0;
+    }
     private void Start()
     {
         input.OnPathUpdated += HandlePathUpdated;
         input.OnPathFinished += HandlePathFinished;
+
+        SwitchToDrawCam();
     }
 
     // Rendering the path
@@ -32,10 +47,12 @@ public class PathGameManager : MonoBehaviour
         if (!valid)
         {
             pathRenderer.Clear();
+            SwitchToDrawCam();
             Debug.Log("Invalid Path");
             return;
         }
         player.FollowPath(path);
+        SwitchToFollowCam();
         OnPathFinished?.Invoke();
     }
 }
