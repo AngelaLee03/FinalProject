@@ -8,6 +8,14 @@ public class PlayerPathFollower : MonoBehaviour
     public float reachThreshold = 0.05f;
 
     private Coroutine moveRoutine;
+    private Vector3 startPosition;
+    private Quaternion startRotation;
+
+    private void Awake()
+    {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+    }
 
     public void FollowPath(List<Vector3> path)
     {
@@ -62,8 +70,27 @@ public class PlayerPathFollower : MonoBehaviour
                 yield return null;
             }
         }
+        moveRoutine = null;
         OnPathComplete();
     }
+
+    public void ResetToStart(Vector3 startPoint)
+    {
+        if (moveRoutine != null)
+        {
+            StopCoroutine(moveRoutine);
+            moveRoutine = null;
+        }
+
+        transform.position = startPoint;
+        transform.rotation = startRotation;
+    }
+
+    public void ResetToStart()
+    {
+        ResetToStart(startPosition);
+    }
+
     // Called when player successfully completes path
     private void OnPathComplete() 
     {

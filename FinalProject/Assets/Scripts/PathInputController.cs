@@ -21,6 +21,14 @@ public class PathInputController: MonoBehaviour
         // Plane for drawing to be visible
         drawPlane = new Plane(Vector3.up, Vector3.zero);
     }
+
+    public void ResetPath()
+    {
+        pathPoints.Clear();
+        lastPoint = Vector3.zero;
+        worldPosition = Vector3.zero;
+    }
+
     private void Update()
     {
         if (Input.touchCount > 0)
@@ -50,6 +58,7 @@ public class PathInputController: MonoBehaviour
                 
                 // Clamping the touch position so we stay within stage bounds
                 Vector3 clamped = ClampToBounds(worldPosition);
+                worldPosition = clamped;
 
                 // Snaps starting position precisely onto the start point if player starts close enough
                 if (Vector3.Distance(worldPosition, startPoint.position) < snapThreshold)
