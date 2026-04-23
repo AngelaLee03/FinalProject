@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   gameManager: {fileID: 321235766}
   player: {fileID: 1007031711}
-  distance: 2
+  distance: 1.5
   moveSpeed: 1.5
   hitCooldown: 0.75
 --- !u!135 &71954384
