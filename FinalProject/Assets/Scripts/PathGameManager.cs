@@ -6,6 +6,7 @@ public class PathGameManager : MonoBehaviour
 {
     public CinemachineCamera drawCam;
     public CinemachineCamera followCam;
+    public Transform startPoint;
     public PathInputController input;
     public PathRenderer pathRenderer;
     public PathValidator validator;
@@ -32,6 +33,15 @@ public class PathGameManager : MonoBehaviour
         SwitchToDrawCam();
     }
 
+    private void OnDestroy()
+    {
+        if (input != null)
+        {
+            input.OnPathUpdated -= HandlePathUpdated;
+            input.OnPathFinished -= HandlePathFinished;
+        }
+    }
+
     // Rendering the path
     private void HandlePathUpdated(List<Vector3> path)
     {
@@ -54,5 +64,35 @@ public class PathGameManager : MonoBehaviour
         player.FollowPath(path);
         SwitchToFollowCam();
         OnPathFinished?.Invoke();
+    }
+
+    public void ResetPlayerToStart()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        if (startPoint != null)
+        {
+            player.ResetToStart(startPoint.position);
+        }
+        else
+        {
+            player.ResetToStart();
+        }
+
+        if (input != null)
+        {
+            input.ResetPath();
+        }
+
+        if (pathRenderer != null)
+        {
+            pathRenderer.Clear();
+        }
+
+        SwitchToDrawCam();
+        Debug.Log("Player was reset to the start point");
     }
 }
