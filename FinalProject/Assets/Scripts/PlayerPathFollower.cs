@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 
 public class PlayerPathFollower : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float reachThreshold = 0.05f;
-
+    public Transform endCam;
     private Coroutine moveRoutine;
     private Vector3 startPosition;
     private Quaternion startRotation;
+    public System.Action OnPathComplete;
 
     private void Awake()
     {
@@ -49,7 +51,9 @@ public class PlayerPathFollower : MonoBehaviour
             while (Vector3.Distance(transform.position, target) > reachThreshold)
             {
                 // Rotating player in direction of path if needed
-                Vector3 direction = (target - transform.position).normalized;
+                Vector3 direction = (target - transform.position);
+                direction.y = 0f; // Ensures the character stays flat to the ground
+                direction.Normalize();
                 if (direction != Vector3.zero)
                 {
                     transform.forward = Vector3.Lerp(
@@ -71,7 +75,11 @@ public class PlayerPathFollower : MonoBehaviour
             }
         }
         moveRoutine = null;
-        OnPathComplete();
+        // Rotates player to look at the camera when finishing
+        Vector3 lookDir = endCam.position - transform.position;
+        lookDir.y = 0f;
+        transform.forward = lookDir.normalized;
+        OnPathComplete?.Invoke();
     }
 
     public void ResetToStart(Vector3 startPoint)
@@ -89,12 +97,6 @@ public class PlayerPathFollower : MonoBehaviour
     public void ResetToStart()
     {
         ResetToStart(startPosition);
-    }
-
-    // Called when player successfully completes path
-    private void OnPathComplete() 
-    {
-        Debug.Log("Player reached destination");
     }
 }
 
