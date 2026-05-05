@@ -85,6 +85,6 @@ public class EnemyMovement : MonoBehaviour
 
         hitTimer = Time.time;
         Debug.Log("Player was hit by enemy and sent back to start");
-        gameManager.ResetPlayerToStart(); // reset enemy to starting point
+        gameManager.LoseLife(); // player loses a life
     }
 }
