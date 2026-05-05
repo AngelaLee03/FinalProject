@@ -8,6 +8,8 @@ public class PlayerPathFollower : MonoBehaviour
     public float moveSpeed = 5f;
     public float reachThreshold = 0.05f;
     public Transform endCam;
+    // Optional: assign the single smart enemy that should chase this player
+    public AIEnemyMovement smartEnemy;
     private Coroutine moveRoutine;
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -25,6 +27,11 @@ public class PlayerPathFollower : MonoBehaviour
         if (moveRoutine != null)
         {
             StopCoroutine(moveRoutine);
+        }
+        // If a smart enemy is assigned, tell it to start chasing after its delay
+        if (smartEnemy != null)
+        {
+            smartEnemy.StartChasing();
         }
 
         moveRoutine = StartCoroutine(FollowPathCoroutine(path));
@@ -80,6 +87,12 @@ public class PlayerPathFollower : MonoBehaviour
         lookDir.y = 0f;
         transform.forward = lookDir.normalized;
         OnPathComplete?.Invoke();
+
+        // Stop the smart enemy from chasing when path finishes
+        if (smartEnemy != null)
+        {
+            smartEnemy.StopChasing();
+        }
     }
 
     public void ResetToStart(Vector3 startPoint)
@@ -92,6 +105,12 @@ public class PlayerPathFollower : MonoBehaviour
 
         transform.position = startPoint;
         transform.rotation = startRotation;
+
+        // Reset assigned smart enemy back to its start
+        if (smartEnemy != null)
+        {
+            smartEnemy.ResetToStart();
+        }
     }
 
     public void ResetToStart()
