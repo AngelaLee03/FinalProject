@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.Cinemachine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PathGameManager : MonoBehaviour
 {
@@ -12,6 +14,12 @@ public class PathGameManager : MonoBehaviour
     public PathRenderer pathRenderer;
     public PathValidator validator;
     public PlayerPathFollower player;
+
+    // Life system
+    public int maxLives = 3;
+    public int currentLives;
+    public Image[] heartIcons;
+    private bool isGameOver;
 
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
@@ -41,6 +49,10 @@ public class PathGameManager : MonoBehaviour
         player.OnPathComplete += HandlePathComplete;
 
         SwitchToDrawCam();
+
+        // Life system
+        currentLives = maxLives;
+        UpdateHeartsUI();
     }
 
     private void OnDestroy()
@@ -85,31 +97,69 @@ public class PathGameManager : MonoBehaviour
 
     public void ResetPlayerToStart()
     {
-        if (player == null)
-        {
-            return;
-        }
+        if (player == null) return;
 
         if (startPoint != null)
         {
-            player.ResetToStart(startPoint.position);
+            Collider startCollider = startPoint.GetComponent<Collider>();
+
+            Vector3 resetPos = startPoint.position;
+
+            if (startCollider != null)
+            {
+                resetPos.y = startCollider.bounds.max.y + 0.5f;
+            }
+            else
+            {
+                resetPos.y += 1f;
+            }
+
+            player.ResetToStart(resetPos);
         }
         else
         {
             player.ResetToStart();
         }
 
-        if (input != null)
-        {
-            input.ResetPath();
-        }
-
-        if (pathRenderer != null)
-        {
-            pathRenderer.Clear();
-        }
+        input?.ResetPath();
+        pathRenderer?.Clear();
 
         SwitchToDrawCam();
-        Debug.Log("Player was reset to the start point");
+    }
+
+    // Life system
+        public void LoseLife()
+    {
+        if (isGameOver) return;
+
+        currentLives--;
+        UpdateHeartsUI();
+
+        Debug.Log("Player lost a life. Lives left: " + currentLives);
+
+        if (currentLives <= 0)
+        {
+            GameOver();
+            return;
+        }
+
+        ResetPlayerToStart();
+    }
+
+        private void UpdateHeartsUI()
+    {
+        for (int i = 0; i < heartIcons.Length; i++)
+        {
+            heartIcons[i].enabled = i < currentLives;
+        }
+    }
+
+    private void GameOver()
+    {
+        isGameOver = true;
+        Debug.Log("Game Over");
+
+        // Simple restart for now
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
