@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public class AIEnemyMovement : MonoBehaviour
 {
@@ -18,11 +17,17 @@ public class AIEnemyMovement : MonoBehaviour
     public float attackRange = 1f;
 
     private Vector3 currentPatrolTarget;
+    public PathGameManager gameManager;
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+
+        if (gameManager == null)
+        {
+            gameManager = FindAnyObjectByType<PathGameManager>();
+        }
     }
 
     private void Start()
@@ -80,8 +85,14 @@ public class AIEnemyMovement : MonoBehaviour
     {
         if (!alreadyAttacked)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            gameManager.LoseLife();
             alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
+    }
+
+    private void ResetAttack()
+    {
+        alreadyAttacked = false;
     }
 }

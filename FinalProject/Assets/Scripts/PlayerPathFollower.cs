@@ -13,10 +13,17 @@ public class PlayerPathFollower : MonoBehaviour
     private Quaternion startRotation;
     public System.Action OnPathComplete;
 
+    // Life system
+    public LayerMask damageMask;
+    public float collisionCheckRadius = 0.45f;
+    private PathGameManager gameManager;
+
     private void Awake()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+
+        gameManager = FindAnyObjectByType<PathGameManager>();
     }
 
     public void FollowPath(List<Vector3> path)
@@ -69,6 +76,12 @@ public class PlayerPathFollower : MonoBehaviour
                     target,
                     moveSpeed * Time.deltaTime
                 );
+
+                if (Physics.CheckSphere(transform.position, collisionCheckRadius, damageMask))
+                {
+                    gameManager.LoseLife();
+                    yield break;
+                }
 
                 // Waiting before continuing movement
                 yield return null;
