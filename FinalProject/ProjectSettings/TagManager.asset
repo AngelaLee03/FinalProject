@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Obstacle
   - DrawingIgnore
-  - 
+  - Ground
   - 
   - 
   - 
@@ -42,6 +42,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Path
+    uniqueID: 2177714017
     locked: 0
   m_RenderingLayers:
   - Default

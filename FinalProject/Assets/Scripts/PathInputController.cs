@@ -10,6 +10,8 @@ public class PathInputController: MonoBehaviour
     public Transform endPoint;
     public Collider stageBounds;
     public float snapThreshold = 1.5f;
+    public LayerMask groundMask;
+    public float surfaceOffset = 0.05f;
 
     private List<Vector3> pathPoints = new List<Vector3> ();
 
@@ -38,19 +40,22 @@ public class PathInputController: MonoBehaviour
             // Converting the screen touch position into a ray from the main camera
             Ray ray = Camera.main.ScreenPointToRay(touch.position);
 
-            // Checking if the ray intersects the drawing plane
-            if (!drawPlane.Raycast(ray, out float enter))
+            RaycastHit hit;
+
+            // Checks if player is drawing on valid ground
+            if (Physics.Raycast(ray, out hit, 100f, groundMask))
             {
-                // If does not intersect, fallback to the last valid point to avoid gaps in path
-                worldPosition = lastPoint;
+                worldPosition = hit.point;
+
+                // Updating path position
+                worldPosition += hit.normal * surfaceOffset;
             }
             else
-            {   
-                // Converting hit distance to actual world position
-                worldPosition = ray.GetPoint(enter);
-                worldPosition.y += 0.02f;
+            {
+                // Use last valid point as a fall back option
+                worldPosition = lastPoint;
             }
-            
+
             if (touch.phase == TouchPhase.Began)
             {
                 // Starting a new path
@@ -76,7 +81,7 @@ public class PathInputController: MonoBehaviour
             else if (touch.phase == TouchPhase.Moved)
             {
                 // Only adds a new point if we've moved far enough from previous point 
-                if (Vector3.Distance(worldPosition, lastPoint) > 0.05f)
+                if (Vector3.Distance(worldPosition, lastPoint) > 0.025f)
                 {
                     pathPoints.Add(worldPosition);
                     lastPoint = worldPosition;
@@ -86,13 +91,18 @@ public class PathInputController: MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
+                Collider endCol = endPoint.GetComponent<Collider>();
+                Vector3 topPoint = endPoint.position;
+                topPoint.y = endCol.bounds.max.y + surfaceOffset;
+
                 // Gets final point in the path
-                Vector3 lastPoint = pathPoints[pathPoints.Count - 1];
+                Vector3 finalPoint = pathPoints[pathPoints.Count - 1];
 
                 // If the user ends the path close enough to the end point, snap ending position precisely onto end point
-                if (Vector3.Distance(lastPoint, endPoint.position) < snapThreshold)
+                if (Vector3.Distance(finalPoint, endPoint.position) < snapThreshold)
                 {
-                    pathPoints[pathPoints.Count - 1] = endPoint.position;
+                    // Player ends on top of the box
+                    pathPoints[pathPoints.Count - 1] = topPoint;
                 }
                 OnPathFinished?.Invoke(pathPoints);
             }
@@ -105,6 +115,13 @@ public class PathInputController: MonoBehaviour
         float x = Mathf.Clamp(point.x, b.min.x, b.max.x);
         float z = Mathf.Clamp(point.z, b.min.z, b.max.z);
 
-        return new Vector3(x, point.y, z);
+        Ray downRay = new Ray(new Vector3(x, point.y + 5f, z), Vector3.down);
+
+        if (Physics.Raycast(downRay, out RaycastHit hit, 10f, groundMask))
+        {
+            return hit.point + hit.normal * surfaceOffset;
+        }
+
+        return point;
     }
 }
