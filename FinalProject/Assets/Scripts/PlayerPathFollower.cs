@@ -8,6 +8,7 @@ public class PlayerPathFollower : MonoBehaviour
     public float moveSpeed = 5f;
     public float reachThreshold = 0.05f;
     public Transform endCam;
+    public Transform startLandingPoint;
     private Coroutine moveRoutine;
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -75,6 +76,7 @@ public class PlayerPathFollower : MonoBehaviour
             }
         }
         moveRoutine = null;
+
         // Rotates player to look at the camera when finishing
         Vector3 lookDir = endCam.position - transform.position;
         lookDir.y = 0f;
@@ -90,7 +92,7 @@ public class PlayerPathFollower : MonoBehaviour
             moveRoutine = null;
         }
 
-        transform.position = startPoint;
+        transform.position = startLandingPoint.position;
         transform.rotation = startRotation;
     }
 

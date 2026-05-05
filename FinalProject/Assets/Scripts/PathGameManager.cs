@@ -4,9 +4,10 @@ using Unity.Cinemachine;
 
 public class PathGameManager : MonoBehaviour
 {
-    public CinemachineCamera drawCam;
+    public CinemachineCamera beginCam;
     public CinemachineCamera followCam;
     public CinemachineCamera endCam;
+    public CinemachineCamera drawCam;
     public Transform startPoint;
     public PathInputController input;
     public PathRenderer pathRenderer;
@@ -19,20 +20,31 @@ public class PathGameManager : MonoBehaviour
     void SwitchToFollowCam()
     {
         followCam.Priority = 10;
-        drawCam.Priority = 0;
+        beginCam.Priority = 0;
         endCam.Priority = 0;
+        drawCam.Priority = 0;
+    }
+    void SwitchToBeginningCam()
+    {
+        beginCam.Priority = 10;
+        followCam.Priority = 0;
+        endCam.Priority = 0;
+        drawCam.Priority = 0;
     }
     void SwitchToDrawCam()
     {
         drawCam.Priority = 10;
         followCam.Priority = 0;
         endCam.Priority = 0;
+        beginCam.Priority = 0;
+       
     }
     void SwitchToEndCam()
     {
         drawCam.Priority = 0;
         followCam.Priority = 0;
         endCam.Priority = 10;
+        beginCam.Priority = 0;
     }
     private void Start()
     {
@@ -40,6 +52,7 @@ public class PathGameManager : MonoBehaviour
         input.OnPathFinished += HandlePathFinished;
         player.OnPathComplete += HandlePathComplete;
 
+        SwitchToBeginningCam();
         SwitchToDrawCam();
     }
 
@@ -66,6 +79,7 @@ public class PathGameManager : MonoBehaviour
 
         if (!valid)
         {
+            input.ResetPath();
             pathRenderer.Clear();
             SwitchToDrawCam();
             Debug.Log("Invalid Path");
@@ -109,7 +123,7 @@ public class PathGameManager : MonoBehaviour
             pathRenderer.Clear();
         }
 
-        SwitchToDrawCam();
+        SwitchToBeginningCam();
         Debug.Log("Player was reset to the start point");
     }
 }
