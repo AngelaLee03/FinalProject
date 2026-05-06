@@ -6,7 +6,6 @@ public class PathGameManager : MonoBehaviour
 {
     public CinemachineCamera drawCam;
     public CinemachineCamera followCam;
-    public CinemachineCamera endCam;
     public Transform startPoint;
     public PathInputController input;
     public PathRenderer pathRenderer;
@@ -20,25 +19,16 @@ public class PathGameManager : MonoBehaviour
     {
         followCam.Priority = 10;
         drawCam.Priority = 0;
-        endCam.Priority = 0;
     }
     void SwitchToDrawCam()
     {
         drawCam.Priority = 10;
         followCam.Priority = 0;
-        endCam.Priority = 0;
-    }
-    void SwitchToEndCam()
-    {
-        drawCam.Priority = 0;
-        followCam.Priority = 0;
-        endCam.Priority = 10;
     }
     private void Start()
     {
         input.OnPathUpdated += HandlePathUpdated;
         input.OnPathFinished += HandlePathFinished;
-        player.OnPathComplete += HandlePathComplete;
 
         SwitchToDrawCam();
     }
@@ -74,13 +64,6 @@ public class PathGameManager : MonoBehaviour
         player.FollowPath(path);
         SwitchToFollowCam();
         OnPathFinished?.Invoke();
-    }
-
-    // Clearing the path once we reach the end point
-    private void HandlePathComplete()
-    {
-        SwitchToEndCam();
-        pathRenderer.Clear();
     }
 
     public void ResetPlayerToStart()
