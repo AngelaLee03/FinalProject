@@ -9,12 +9,14 @@ public class PathGameManager : MonoBehaviour
     public CinemachineCamera beginCam;
     public CinemachineCamera followCam;
     public CinemachineCamera endCam;
-    public CinemachineCamera drawCam;
-    public Transform startPoint;
     public PathInputController input;
     public PathRenderer pathRenderer;
     public PathValidator validator;
     public PlayerPathFollower player;
+
+    // Checkpoint system
+    public List<LevelPart> levelParts;
+    private int currentPartIndex = 0;
 
     // Life system
     public int maxLives = 3;
@@ -25,43 +27,44 @@ public class PathGameManager : MonoBehaviour
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
 
-    void SwitchToFollowCam()
-    {
-        followCam.Priority = 10;
-        beginCam.Priority = 0;
-        endCam.Priority = 0;
-        drawCam.Priority = 0;
-    }
     void SwitchToBeginningCam()
     {
-        beginCam.Priority = 10;
+        beginCam.Priority = 5;
         followCam.Priority = 0;
         endCam.Priority = 0;
-        drawCam.Priority = 0;
     }
-    void SwitchToDrawCam()
+    void SwitchToFollowCam()
+    { 
+        beginCam.Priority = 0;
+        followCam.Priority = 10;
+        endCam.Priority = 0;
+    }
+    void SetActiveLevelPart(int index)
     {
-        drawCam.Priority = 10;
+        beginCam.Priority = 0;
         followCam.Priority = 0;
         endCam.Priority = 0;
-        beginCam.Priority = 0;
-       
+        for (int i = 0; i < levelParts.Count; i++)
+        {
+            // Activating the drawing camera for the currently active level part based on index passed
+            levelParts[i].levelCam.Priority = (i == index) ? 10 : 0;
+        }
     }
     void SwitchToEndCam()
     {
-        drawCam.Priority = 0;
+        beginCam.Priority = 0;
         followCam.Priority = 0;
         endCam.Priority = 10;
-        beginCam.Priority = 0;
     }
+
     private void Start()
     {
+        currentPartIndex = 0;
+        SetActiveLevelPart(currentPartIndex);
+
         input.OnPathUpdated += HandlePathUpdated;
         input.OnPathFinished += HandlePathFinished;
         player.OnPathComplete += HandlePathComplete;
-
-        SwitchToBeginningCam();
-        SwitchToDrawCam();
 
         // Life system
         currentLives = maxLives;
@@ -87,13 +90,13 @@ public class PathGameManager : MonoBehaviour
     // Checks if path is valid
     private void HandlePathFinished(List<Vector3> path)
     {
-        bool valid = validator.Validate(path);
+        LevelPart part = levelParts[currentPartIndex];
+        bool valid = validator.Validate(path, part);
 
         if (!valid)
         {
             input.ResetPath();
             pathRenderer.Clear();
-            SwitchToDrawCam();
             Debug.Log("Invalid Path");
             return;
         }
@@ -102,43 +105,53 @@ public class PathGameManager : MonoBehaviour
         OnPathFinished?.Invoke();
     }
 
-    // Clearing the path once we reach the end point
+    // Advances to next level part and clears path to prepare for next part of the level
     private void HandlePathComplete()
     {
-        SwitchToEndCam();
+        AdvanceNextPart();
         pathRenderer.Clear();
     }
+    
+    void AdvanceNextPart()
+    {
+        currentPartIndex++; // advancing level part index
 
-    public void ResetPlayerToStart()
+        if (currentPartIndex >= levelParts.Count) // if we've complete the last part of the level, level is completed
+        {
+            SwitchToEndCam();
+            Debug.Log("LEVEL COMPLETE");
+            return;
+        }
+
+        SetActiveLevelPart(currentPartIndex);
+    }
+
+    public void ResetPlayerToCheckPoint()
     {
         if (player == null) return;
 
-        if (startPoint != null)
+        LevelPart part = levelParts[currentPartIndex];
+        if (part.startPoint != null)
         {
-            Collider startCollider = startPoint.GetComponent<Collider>();
-
-            Vector3 resetPos = startPoint.position;
-
+            Collider startCollider = part.startPoint.GetComponent<Collider>();
+            Vector3 resetPos = part.startPoint.position;
             if (startCollider != null)
             {
-                resetPos.y = startCollider.bounds.max.y + 0.5f;
+                resetPos.y = startCollider.bounds.max.y;
             }
             else
             {
                 resetPos.y += 1f;
             }
-
             player.ResetToStart(resetPos);
+            SetActiveLevelPart(currentPartIndex);
         }
         else
         {
             player.ResetToStart();
         }
-
         input?.ResetPath();
         pathRenderer?.Clear();
-
-        SwitchToDrawCam();
     }
 
     // Life system
@@ -157,7 +170,7 @@ public class PathGameManager : MonoBehaviour
             return;
         }
 
-        ResetPlayerToStart();
+        ResetPlayerToCheckPoint();
     }
 
         private void UpdateHeartsUI()
@@ -175,5 +188,11 @@ public class PathGameManager : MonoBehaviour
 
         // Simple restart for now
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SwitchToBeginningCam();
+    }
+    
+    public LevelPart GetLevelPart()
+    {
+        return levelParts[currentPartIndex];
     }
 }

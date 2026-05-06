@@ -105,7 +105,7 @@ public class PlayerPathFollower : MonoBehaviour
             moveRoutine = null;
         }
 
-        transform.position = startLandingPoint.position;
+        transform.position = startPoint;
         transform.rotation = startRotation;
     }
 
