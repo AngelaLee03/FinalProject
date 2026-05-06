@@ -19,10 +19,13 @@ public class PathGameManager : MonoBehaviour
     private int currentPartIndex = 0;
 
     // Life system
-    public int maxLives = 3;
+    public int maxLives = 5;
     public int currentLives;
     public Image[] heartIcons;
     private bool isGameOver;
+
+    public float lifeLossCooldown = 1f;
+    private float lastLifeLossTime = -999f;
 
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
@@ -137,7 +140,7 @@ public class PathGameManager : MonoBehaviour
             Vector3 resetPos = part.startPoint.position;
             if (startCollider != null)
             {
-                resetPos.y = startCollider.bounds.max.y;
+                resetPos.y = startCollider.bounds.max.y + 0.5f;
             }
             else
             {
@@ -155,9 +158,16 @@ public class PathGameManager : MonoBehaviour
     }
 
     // Life system
-        public void LoseLife()
+    public void LoseLife()
     {
         if (isGameOver) return;
+
+        if (Time.time - lastLifeLossTime < lifeLossCooldown)
+        {
+            return;
+        }
+
+        lastLifeLossTime = Time.time;
 
         currentLives--;
         UpdateHeartsUI();
@@ -173,7 +183,7 @@ public class PathGameManager : MonoBehaviour
         ResetPlayerToCheckPoint();
     }
 
-        private void UpdateHeartsUI()
+    private void UpdateHeartsUI()
     {
         for (int i = 0; i < heartIcons.Length; i++)
         {
