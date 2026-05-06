@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class PathValidator : MonoBehaviour
 {
-    public Transform startPoint;
-    public Transform endPoint;
     public float threshold = 0.5f;
     public LayerMask obstacleMask;
 
@@ -20,7 +18,7 @@ public class PathValidator : MonoBehaviour
         // Checking if path is starting from valid start position
         if (Vector3.Distance(path[0], part.startPoint.position) > threshold) 
         {
-            Debug.Log(Vector3.Distance(path[0], startPoint.position));
+            Debug.Log(Vector3.Distance(path[0], part.startPoint.position));
             Debug.Log("Path needs to start from the start point!");
             return false;
         }
