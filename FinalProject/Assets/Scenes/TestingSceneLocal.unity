@@ -1473,6 +1473,7 @@ MonoBehaviour:
   - {fileID: 1598319750}
   - {fileID: 1057845240}
   - {fileID: 685316279}
+  lifeLossCooldown: 1
 --- !u!4 &321235767
 Transform:
   m_ObjectHideFlags: 0
@@ -12625,7 +12626,8 @@ PrefabInstance:
       propertyPath: startLandingPoint
       value: 
       objectReference: {fileID: 10600344}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5485274428381499363, guid: dd19a76915e6e454794268a158e4976a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
