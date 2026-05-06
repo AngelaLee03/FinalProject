@@ -176,7 +176,7 @@ public class PathGameManager : MonoBehaviour
 
         if (currentLives <= 0)
         {
-            GameOver();
+            ResetToBeginning();
             return;
         }
 
@@ -191,13 +191,44 @@ public class PathGameManager : MonoBehaviour
         }
     }
 
+    private void ResetToBeginning()
+    {
+        currentLives = maxLives;
+        UpdateHeartsUI();
+
+        currentPartIndex = 0;
+
+        if (levelParts.Count > 0 && levelParts[0].startPoint != null)
+        {
+            Collider startCollider = levelParts[0].startPoint.GetComponent<Collider>();
+
+            Vector3 resetPos = levelParts[0].startPoint.position;
+
+            if (startCollider != null)
+            {
+                resetPos.y = startCollider.bounds.max.y + 0.5f;
+            }
+            else
+            {
+                resetPos.y += 1f;
+            }
+
+            player.ResetToStart(resetPos);
+        }
+
+        input?.ResetPath();
+        pathRenderer?.Clear();
+
+        SetActiveLevelPart(currentPartIndex);
+
+        Debug.Log("Out of lives. Reset to beginning.");
+    }
+
     private void GameOver()
     {
         isGameOver = true;
         Debug.Log("Game Over");
 
-        // Simple restart for now
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         SwitchToBeginningCam();
     }
     
