@@ -4,8 +4,8 @@
 
 ## Team Members & Roles:
 - **Aleksa Ocampo** –> (Enemy AI & Mechanics)
-- **Angela Lee** –> (UI/UX & Mobile Input)
-- **Katelyn Nguyen** –> (Path Drawing System)
+- **Angela Lee** –> (UI/UX, Level Design, & Animation)
+- **Katelyn Nguyen** –> (Path Drawing System & Mobile Input)
 - **Estephanie Fernandez** –> (Level Design & Testing)
 
 ## Game Description:
