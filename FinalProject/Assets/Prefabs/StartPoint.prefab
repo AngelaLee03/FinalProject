@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5955996918214473218
+--- !u!1 &275539048242171161
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 259114292748989105}
+  - component: {fileID: 4114425502492497473}
+  - component: {fileID: 1608787641862216064}
   m_Layer: 0
   m_Name: StartPoint
   m_TagString: Untagged
@@ -16,24 +17,46 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &259114292748989105
+--- !u!4 &4114425502492497473
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5955996918214473218}
+  m_GameObject: {fileID: 275539048242171161}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 1.5, z: -15}
+  m_LocalPosition: {x: -5.36, y: -0.5007601, z: -4.2467804}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4218035605588186968}
-  - {fileID: 3341217880546234348}
+  - {fileID: 8397776820406790384}
+  - {fileID: 2737905429305913944}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8146858103756415908
+--- !u!64 &1608787641862216064
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275539048242171161}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: b9e735fa6c8284038a6b5fbc7fcd510c, type: 3}
+--- !u!1 &4786750823392466365
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +64,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3341217880546234348}
+  - component: {fileID: 2737905429305913944}
   m_Layer: 0
   m_Name: StartLandingPoint
   m_TagString: Untagged
@@ -49,28 +72,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3341217880546234348
+--- !u!4 &2737905429305913944
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8146858103756415908}
+  m_GameObject: {fileID: 4786750823392466365}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.191, z: 0}
+  m_LocalPosition: {x: -0.033, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 259114292748989105}
+  m_Father: {fileID: 4114425502492497473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &4396569267835105459
+--- !u!1001 &8286725548104109851
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 259114292748989105}
+    m_TransformParent: {fileID: 4114425502492497473}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b9e735fa6c8284038a6b5fbc7fcd510c, type: 3}
       propertyPath: m_LocalScale.x
@@ -153,8 +176,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9e735fa6c8284038a6b5fbc7fcd510c, type: 3}
---- !u!4 &4218035605588186968 stripped
+--- !u!4 &8397776820406790384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b9e735fa6c8284038a6b5fbc7fcd510c, type: 3}
-  m_PrefabInstance: {fileID: 4396569267835105459}
+  m_PrefabInstance: {fileID: 8286725548104109851}
   m_PrefabAsset: {fileID: 0}

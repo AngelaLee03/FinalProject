@@ -7,9 +7,8 @@ public class PathValidator : MonoBehaviour
     public Transform endPoint;
     public float threshold = 0.5f;
     public LayerMask obstacleMask;
-    public Collider stageBounds;
 
-    public bool Validate(List<Vector3> path)
+    public bool Validate(List<Vector3> path, LevelPart part)
     {
         // Checking if path is too short
         if (path == null || path.Count < 2)
@@ -19,7 +18,7 @@ public class PathValidator : MonoBehaviour
         }
 
         // Checking if path is starting from valid start position
-        if (Vector3.Distance(path[0], startPoint.position) > threshold) 
+        if (Vector3.Distance(path[0], part.startPoint.position) > threshold) 
         {
             Debug.Log(Vector3.Distance(path[0], startPoint.position));
             Debug.Log("Path needs to start from the start point!");
@@ -27,7 +26,7 @@ public class PathValidator : MonoBehaviour
         }
         
         // Checking if path is ending at valid end position
-        if (Vector3.Distance(path[^1], endPoint.position) > threshold)
+        if (Vector3.Distance(path[^1], part.endPoint.position) > threshold)
         {
             Debug.Log("Path needs to end at the end point");
             return false;
@@ -35,7 +34,7 @@ public class PathValidator : MonoBehaviour
 
         for (int i = 0; i < path.Count - 1; i++) {
             // Looping over all points to see if path is within bounds
-            if (!stageBounds.bounds.Contains(path[i]))
+            if (!part.levelBounds.bounds.Contains(path[i]))
             {
                 Debug.Log("Out of bounds");
                 return false;
