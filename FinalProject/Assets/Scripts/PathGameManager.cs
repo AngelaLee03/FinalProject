@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
+using TMPro;
 
 public class PathGameManager : MonoBehaviour
 {
@@ -27,6 +29,14 @@ public class PathGameManager : MonoBehaviour
     public float lifeLossCooldown = 1f;
     private float lastLifeLossTime = -999f;
     public GameObject outOfLivesPanel;
+
+    // Game Complete
+    public GameObject levelCompletePanel;
+    public TMP_Text scoreText;
+    public Image[] scoreHeartIcons;
+    public Sprite fullHeartSprite;
+    public Sprite emptyHeartSprite;
+    public float levelCompleteDelay = 1.5f;
 
     // Path system
     private List<Vector3> currentPath;
@@ -65,6 +75,15 @@ public class PathGameManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
+        isGameOver = false;
+
+        if (levelCompletePanel != null)
+            levelCompletePanel.SetActive(false);
+
+        if (outOfLivesPanel != null)
+            outOfLivesPanel.SetActive(false);
+
         currentPartIndex = 0;
         SetActiveLevelPart(currentPartIndex); // setting the active camera to first part of level
 
@@ -96,7 +115,13 @@ public class PathGameManager : MonoBehaviour
     // Checks if path is valid
     private void HandlePathFinished(List<Vector3> path)
     {
-        LevelPart part = levelParts[currentPartIndex];
+        LevelPart part = GetLevelPart();
+
+        if (part == null)
+        {
+            return;
+        }
+
         bool valid = validator.Validate(path, part);
 
         if (!valid)
@@ -125,12 +150,43 @@ public class PathGameManager : MonoBehaviour
 
         if (currentPartIndex >= levelParts.Count) // if we've complete the last part of the level, level is completed
         {
-            SwitchToEndCam();
             Debug.Log("LEVEL COMPLETE");
+            SwitchToEndCam();
+            StartCoroutine(ShowLevelCompleteAfterDelay());
             return;
         }
 
         SetActiveLevelPart(currentPartIndex);
+    }
+    
+        private IEnumerator ShowLevelCompleteAfterDelay()
+    {
+        yield return new WaitForSeconds(levelCompleteDelay);
+        ShowLevelCompleteScreen();
+    }
+
+    private void ShowLevelCompleteScreen()
+    {
+        isGameOver = true;
+        Time.timeScale = 0f;
+
+        input?.ResetPath();
+        pathRenderer?.Clear();
+
+        if (levelCompletePanel != null)
+        {
+            levelCompletePanel.SetActive(true);
+        }
+
+        if (scoreText != null)
+        {
+            scoreText.text = "Level Score: " + currentLives + " / " + maxLives;
+        }
+
+        for (int i = 0; i < scoreHeartIcons.Length; i++)
+        {
+            scoreHeartIcons[i].sprite = i < currentLives ? fullHeartSprite : emptyHeartSprite;
+        }
     }
 
     // Resets player to the last reached checkpoint
@@ -219,8 +275,37 @@ public class PathGameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         isGameOver = false;
+        
+        if (levelCompletePanel != null)
+            levelCompletePanel.SetActive(false);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (outOfLivesPanel != null)
+            outOfLivesPanel.SetActive(false);
+
+        StartCoroutine(ReloadSceneNextFrame());
+    }
+    private IEnumerator ReloadSceneNextFrame() {
+
+            yield return null;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToNextLevel()
+    {
+        Time.timeScale = 1f;
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int lastLevelIndex = 4; // adjust if needed
+
+        if (currentSceneIndex == lastLevelIndex)
+        {
+            SceneManager.LoadScene("EndingMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
     }
 
     public void GoToMainMenu()
@@ -232,6 +317,12 @@ public class PathGameManager : MonoBehaviour
     // helper function for getting level part data
     public LevelPart GetLevelPart()
     {
+        if (levelParts == null || levelParts.Count == 0)
+            return null;
+
+        if (currentPartIndex >= levelParts.Count)
+            return levelParts[levelParts.Count - 1];
+
         return levelParts[currentPartIndex];
     }
 }
