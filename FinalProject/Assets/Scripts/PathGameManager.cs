@@ -36,7 +36,7 @@ public class PathGameManager : MonoBehaviour
     public Image[] scoreHeartIcons;
     public Sprite fullHeartSprite;
     public Sprite emptyHeartSprite;
-    public float levelCompleteDelay = 1.5f;
+    public float levelCompleteDelay = 3.5f;
 
     // Path system
     private List<Vector3> currentPath;
