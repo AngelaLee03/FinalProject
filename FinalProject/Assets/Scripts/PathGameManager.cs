@@ -283,6 +283,11 @@ public class PathGameManager : MonoBehaviour
 
         if (currentLives <= 0)
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.StopPlayerMoveSound();
+            }
+
             ShowOutOfLivesScreen();
             return;
         }
@@ -304,6 +309,13 @@ public class PathGameManager : MonoBehaviour
     {
         isGameOver = true;
         Time.timeScale = 0f;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopPlayerMoveSound();
+            AudioManager.Instance.StopDrawSound();
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
+        }
 
         if (outOfLivesPanel != null)
         {
