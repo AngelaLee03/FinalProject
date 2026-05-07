@@ -13377,7 +13377,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 240
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6157935937159065096, guid: df59e2da5ea3a4b19b32902e63488f08, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -13635,7 +13636,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GoToNextLevel
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8427967639488418704, guid: f609dcd3e7e6449a3aef1aada7c863e2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
