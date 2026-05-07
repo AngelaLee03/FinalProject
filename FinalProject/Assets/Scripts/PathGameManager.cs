@@ -396,4 +396,11 @@ public class PathGameManager : MonoBehaviour
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         }
     }
+
+    public bool IsMenuOpen()
+    {
+        return isGameOver ||
+            (levelCompletePanel != null && levelCompletePanel.activeInHierarchy) ||
+            (outOfLivesPanel != null && outOfLivesPanel.activeInHierarchy);
+    }
 }

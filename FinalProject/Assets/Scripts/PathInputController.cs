@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class PathInputController: MonoBehaviour
 {
@@ -31,9 +32,23 @@ public class PathInputController: MonoBehaviour
 
     private void Update()
     {
-        if (Input.touchCount > 0)
+        if (gameManager != null && gameManager.IsMenuOpen())
+        {
+            ResetPath();
+            return;
+        }
+
+        if (Input.touchCount > 0) 
         {
             Touch touch = Input.GetTouch(0);
+
+            if (EventSystem.current != null &&
+                EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
+                ResetPath();
+                return;
+            }
+            
             LevelPart part = gameManager.GetLevelPart();
             if (part == null) return;
 
