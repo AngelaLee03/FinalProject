@@ -8,7 +8,6 @@ public class PlayerPathFollower : MonoBehaviour
     public float moveSpeed = 5f;
     public float reachThreshold = 0.05f;
     public Transform endCam;
-    public Transform startLandingPoint;
     private Coroutine moveRoutine;
     private Vector3 startPosition;
     private Quaternion startRotation;
@@ -78,6 +77,7 @@ public class PlayerPathFollower : MonoBehaviour
                     moveSpeed * Time.deltaTime
                 );
 
+                // Checking if player has hit obstacles or enemies
                 if (Physics.CheckSphere(transform.position, collisionCheckRadius, damageMask))
                 {
                     gameManager.LoseLife();
@@ -90,13 +90,14 @@ public class PlayerPathFollower : MonoBehaviour
         }
         moveRoutine = null;
 
-        // Rotates player to look at the camera when finishing
+        // Rotates player to look at the camera when finishing level
         Vector3 lookDir = endCam.position - transform.position;
         lookDir.y = 0f;
         transform.forward = lookDir.normalized;
         OnPathComplete?.Invoke();
     }
 
+    // Resetting player back to the starting point
     public void ResetToStart(Vector3 startPoint)
     {
         if (moveRoutine != null)
@@ -109,6 +110,7 @@ public class PlayerPathFollower : MonoBehaviour
         transform.rotation = startRotation;
     }
 
+    // Fall back if start point is null
     public void ResetToStart()
     {
         ResetToStart(startPosition);

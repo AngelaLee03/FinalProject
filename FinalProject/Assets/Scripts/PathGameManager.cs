@@ -27,6 +27,7 @@ public class PathGameManager : MonoBehaviour
     public float lifeLossCooldown = 1f;
     private float lastLifeLossTime = -999f;
 
+    // Path system
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
 
@@ -63,7 +64,7 @@ public class PathGameManager : MonoBehaviour
     private void Start()
     {
         currentPartIndex = 0;
-        SetActiveLevelPart(currentPartIndex);
+        SetActiveLevelPart(currentPartIndex); // setting the active camera to first part of level
 
         input.OnPathUpdated += HandlePathUpdated;
         input.OnPathFinished += HandlePathFinished;
@@ -103,6 +104,7 @@ public class PathGameManager : MonoBehaviour
             Debug.Log("Invalid Path");
             return;
         }
+        // otherwise player will follow path
         player.FollowPath(path);
         SwitchToFollowCam();
         OnPathFinished?.Invoke();
@@ -129,6 +131,7 @@ public class PathGameManager : MonoBehaviour
         SetActiveLevelPart(currentPartIndex);
     }
 
+    // Resets player to the last reached checkpoint
     public void ResetPlayerToCheckPoint()
     {
         if (player == null) return;
@@ -140,6 +143,7 @@ public class PathGameManager : MonoBehaviour
             Vector3 resetPos = part.startPoint.position;
             if (startCollider != null)
             {
+                // resetting player on top of starting point
                 resetPos.y = startCollider.bounds.max.y + 0.5f;
             }
             else
@@ -151,6 +155,7 @@ public class PathGameManager : MonoBehaviour
         }
         else
         {
+            // fallback option
             player.ResetToStart();
         }
         input?.ResetPath();
@@ -162,6 +167,7 @@ public class PathGameManager : MonoBehaviour
     {
         if (isGameOver) return;
 
+        // if player's lost a life faster than cooldown, player will not lose a life
         if (Time.time - lastLifeLossTime < lifeLossCooldown)
         {
             return;
@@ -182,7 +188,8 @@ public class PathGameManager : MonoBehaviour
 
         ResetPlayerToCheckPoint();
     }
-
+    
+    // Displaying hearts for current lives
     private void UpdateHeartsUI()
     {
         for (int i = 0; i < heartIcons.Length; i++)
@@ -191,6 +198,7 @@ public class PathGameManager : MonoBehaviour
         }
     }
 
+    // Resetting player to the first part of the level
     private void ResetToBeginning()
     {
         currentLives = maxLives;
@@ -227,11 +235,13 @@ public class PathGameManager : MonoBehaviour
     private void GameOver()
     {
         isGameOver = true;
+        currentPartIndex = 0;
         Debug.Log("Game Over");
 
-        SwitchToBeginningCam();
+        SetActiveLevelPart(currentPartIndex);
     }
     
+    // helper function for getting level part data
     public LevelPart GetLevelPart()
     {
         return levelParts[currentPartIndex];
