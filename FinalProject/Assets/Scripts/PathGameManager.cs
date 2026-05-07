@@ -37,6 +37,7 @@ public class PathGameManager : MonoBehaviour
     public Sprite fullHeartSprite;
     public Sprite emptyHeartSprite;
     public float levelCompleteDelay = 3.5f;
+    private bool scoreSaved = false;
 
     // Sound
     private bool isDrawing = false;
@@ -80,6 +81,8 @@ public class PathGameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         isGameOver = false;
+        
+        scoreSaved = false;
 
         if (levelCompletePanel != null)
             levelCompletePanel.SetActive(false);
@@ -195,6 +198,16 @@ public class PathGameManager : MonoBehaviour
     {
         isGameOver = true;
         Time.timeScale = 0f;
+
+        if (!scoreSaved)
+        {
+            int totalScore = PlayerPrefs.GetInt("TotalScore", 0);
+            totalScore += currentLives;
+            PlayerPrefs.SetInt("TotalScore", totalScore);
+            PlayerPrefs.Save();
+
+            scoreSaved = true;
+        }
 
         input?.ResetPath();
         pathRenderer?.Clear();
