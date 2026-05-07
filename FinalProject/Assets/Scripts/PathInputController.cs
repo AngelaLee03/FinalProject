@@ -106,6 +106,10 @@ public class PathInputController: MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
+                if (pathPoints.Count == 0)
+                {
+                    return;
+                }
                 // Getting top point of end position to end on top of box
                 Collider endCol = part.endPoint.GetComponent<Collider>();
                 Vector3 topPoint = part.endPoint.position;
