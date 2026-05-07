@@ -84,8 +84,7 @@ public class EnemyMovement : MonoBehaviour
         }
 
         hitTimer = Time.time;
-        Debug.Log("Player was hit by enemy and sent back to start");
-        gameManager.ResetPlayerToCheckPoint();
+        
         gameManager.LoseLife(); // player loses a life
     }
 }
