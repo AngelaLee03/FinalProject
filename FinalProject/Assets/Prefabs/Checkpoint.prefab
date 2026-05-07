@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5813951310492413961}
   - component: {fileID: 1363169042519573376}
+  - component: {fileID: 3447406567782191570}
   m_Layer: 0
   m_Name: Checkpoint
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8873297288117444150}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.68022, y: -0.5007601, z: 3.7532196}
   m_LocalScale: {x: 2, y: 0.5, z: 2}
   m_ConstrainProportionsScale: 0
@@ -52,9 +53,25 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2432090755550338912, guid: 32f21f10507954e3387a65a9d915651d, type: 3}
+--- !u!208 &3447406567782191570
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8873297288117444150}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &609234498626987494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -102,6 +119,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 32f21f10507954e3387a65a9d915651d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 32f21f10507954e3387a65a9d915651d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 32f21f10507954e3387a65a9d915651d, type: 3}
       propertyPath: m_Name
