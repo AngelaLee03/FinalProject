@@ -91,6 +91,7 @@ public class PlayerPathFollower : MonoBehaviour
         moveRoutine = null;
 
         // Rotates player to look at the camera when finishing level
+        Quaternion startRot = transform.rotation;
         Vector3 lookDir = endCam.position - transform.position;
         lookDir.y = 0f;
         transform.forward = lookDir.normalized;
