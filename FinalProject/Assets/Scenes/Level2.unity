@@ -17548,6 +17548,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 698008065}
     - target: {fileID: 4212584619771717722, guid: 54f6bc7653624bd4c949a48ed1802864, type: 3}
+      propertyPath: levelParts.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212584619771717722, guid: 54f6bc7653624bd4c949a48ed1802864, type: 3}
       propertyPath: 'heartIcons.Array.data[0]'
       value: 
       objectReference: {fileID: 780815833}
