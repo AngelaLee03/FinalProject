@@ -39,12 +39,12 @@ public class PathValidator : MonoBehaviour
             }
 
             // Looping over all points to see if path has overlapped with any obstacles
-            if (Physics.Linecast(path[i], path[i + 1], obstacleMask)) 
+            if (Physics.Linecast(path[i], path[i + 1], obstacleMask))
             {
                 Debug.Log("Path overlaps obstacles");
                 return false;
             }
-            
+
         }
         return true;
     }
