@@ -13887,6 +13887,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1729605092}
     - target: {fileID: 8978448023570415846, guid: 74dbf4c07d440f8409507248891c7639, type: 3}
+      propertyPath: distance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8978448023570415846, guid: 74dbf4c07d440f8409507248891c7639, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 721697000}
