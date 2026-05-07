@@ -12296,6 +12296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1649240328}
+  - component: {fileID: 1649240329}
   m_Layer: 0
   m_Name: LevelPt.4
   m_TagString: Untagged
@@ -12312,12 +12313,33 @@ Transform:
   m_GameObject: {fileID: 1649240327}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.01513, y: 2.58, z: -37.50912}
+  m_LocalPosition: {x: 9.984871, y: 2.58, z: -5.509121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1649240329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649240327}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 19.545513, y: 1, z: 23.596256}
+  m_Center: {x: 1.2773361, y: 0, z: 0.7220974}
 --- !u!1001 &1660113506
 PrefabInstance:
   m_ObjectHideFlags: 0
