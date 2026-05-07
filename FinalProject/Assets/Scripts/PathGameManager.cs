@@ -38,6 +38,9 @@ public class PathGameManager : MonoBehaviour
     public Sprite emptyHeartSprite;
     public float levelCompleteDelay = 3.5f;
 
+    // Sound
+    private bool isDrawing = false;
+
     // Path system
     private List<Vector3> currentPath;
     public System.Action OnPathFinished;
@@ -110,11 +113,28 @@ public class PathGameManager : MonoBehaviour
     {
         currentPath = path;
         pathRenderer.DrawPath(path);
+
+        if (!isDrawing)
+        {
+            isDrawing = true;
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.StartDrawSound();
+            }
+        }
     }
 
     // Checks if path is valid
     private void HandlePathFinished(List<Vector3> path)
     {
+        isDrawing = false;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopDrawSound();
+        }
+        
         LevelPart part = GetLevelPart();
 
         if (part == null)
@@ -126,6 +146,12 @@ public class PathGameManager : MonoBehaviour
 
         if (!valid)
         {
+            isDrawing = false;
+
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.StopDrawSound();
+            }
             input.ResetPath();
             pathRenderer.Clear();
             Debug.Log("Invalid Path");
@@ -177,6 +203,8 @@ public class PathGameManager : MonoBehaviour
         {
             levelCompletePanel.SetActive(true);
         }
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.levelComplete);
 
         if (scoreText != null)
         {
@@ -233,6 +261,8 @@ public class PathGameManager : MonoBehaviour
 
         lastLifeLossTime = Time.time;
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.loseLife);
+
         currentLives--;
         UpdateHeartsUI();
 
@@ -267,50 +297,70 @@ public class PathGameManager : MonoBehaviour
             outOfLivesPanel.SetActive(true);
         }
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
+
         Debug.Log("Out of lives. Show restart screen.");
     }
 
     // Resetting player to the first part of the level
     public void RestartCurrentLevel()
     {
+        StartCoroutine(RestartCurrentLevelAfterSound());
+    }
+
+    private IEnumerator RestartCurrentLevelAfterSound()
+    {
+        OnButtonClick();
+
         Time.timeScale = 1f;
         isGameOver = false;
-        
+
         if (levelCompletePanel != null)
             levelCompletePanel.SetActive(false);
 
         if (outOfLivesPanel != null)
             outOfLivesPanel.SetActive(false);
 
-        StartCoroutine(ReloadSceneNextFrame());
-    }
-    private IEnumerator ReloadSceneNextFrame() {
+        yield return new WaitForSecondsRealtime(0.3f);
 
-            yield return null;
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToNextLevel()
     {
+        StartCoroutine(GoToNextLevelAfterSound());
+    }
+
+    private IEnumerator GoToNextLevelAfterSound()
+    {
+        OnButtonClick();
+
         Time.timeScale = 1f;
 
+        yield return new WaitForSecondsRealtime(0.3f);
+
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        int lastLevelIndex = 4; // adjust if needed
+        int lastLevelIndex = 4;
 
         if (currentSceneIndex == lastLevelIndex)
-        {
             SceneManager.LoadScene("EndingMenu");
-        }
         else
-        {
             SceneManager.LoadScene(currentSceneIndex + 1);
-        }
     }
 
     public void GoToMainMenu()
     {
+        StartCoroutine(GoToMainMenuAfterSound());
+    }
+
+    private IEnumerator GoToMainMenuAfterSound()
+    {
+        OnButtonClick();
+
         Time.timeScale = 1f;
+
+        yield return new WaitForSecondsRealtime(0.3f);
+
         SceneManager.LoadScene("MainMenu");
     }
     
@@ -324,5 +374,13 @@ public class PathGameManager : MonoBehaviour
             return levelParts[levelParts.Count - 1];
 
         return levelParts[currentPartIndex];
+    }
+
+    public void OnButtonClick()
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+        }
     }
 }

@@ -12,6 +12,8 @@ public class PlayerPathFollower : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     public System.Action OnPathComplete;
+    public float moveSoundCooldown = 0.25f;
+    private float lastMoveSoundTime;
 
     // Life system
     public LayerMask damageMask;
@@ -45,7 +47,12 @@ public class PlayerPathFollower : MonoBehaviour
         {
             yield break;
         }
-        
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StartPlayerMoveSound();
+        }
+                
         // Makes sure player starts from starting position
         transform.position = path[0];
 
@@ -80,6 +87,11 @@ public class PlayerPathFollower : MonoBehaviour
                 // Checking if player has hit obstacles or enemies
                 if (Physics.CheckSphere(transform.position, collisionCheckRadius, damageMask))
                 {
+                    if (AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.StopPlayerMoveSound();
+                        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyHit);
+                    }
                     gameManager.LoseLife();
                     yield break;
                 }
@@ -95,12 +107,23 @@ public class PlayerPathFollower : MonoBehaviour
         Vector3 lookDir = endCam.position - transform.position;
         lookDir.y = 0f;
         transform.forward = lookDir.normalized;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopPlayerMoveSound();
+        }
+
         OnPathComplete?.Invoke();
     }
 
     // Resetting player back to the starting point
     public void ResetToStart(Vector3 startPoint)
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopPlayerMoveSound();
+        }
+        
         if (moveRoutine != null)
         {
             StopCoroutine(moveRoutine);
