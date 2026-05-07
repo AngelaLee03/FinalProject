@@ -85,6 +85,8 @@ public class AIEnemyMovement : MonoBehaviour
     {
         if (!alreadyAttacked)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyHit);
+            
             gameManager.LoseLife();
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

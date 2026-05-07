@@ -84,6 +84,8 @@ public class EnemyMovement : MonoBehaviour
         }
 
         hitTimer = Time.time;
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyHit);
         
         gameManager.LoseLife(); // player loses a life
     }
