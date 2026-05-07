@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ec4aa1af48914423898b27324acf2dd6
+timeCreated: 1500487987
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 95980
+  packageName: Low Poly Arabian City Pack
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Arabian City Pack/Prefabs/Pieces/Fort Set/fort_wall_with_hole.prefab
+  uploadId: 190921

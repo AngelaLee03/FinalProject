@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: b7f9482de27394679a757945002c9fae
+timeCreated: 1500487940
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 95980
+  packageName: Low Poly Arabian City Pack
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Arabian City Pack/Prefabs/Pieces/Dunes/dune1.prefab
+  uploadId: 190921

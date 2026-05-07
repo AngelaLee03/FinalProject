@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: d4854b79617d34e58b46406bab7e9305
+timeCreated: 1500487905
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 95980
+  packageName: Low Poly Arabian City Pack
+  packageVersion: 1.0
+  assetPath: Assets/Low Poly Arabian City Pack/Prefabs/Pieces/Crops/tomato.prefab
+  uploadId: 190921
