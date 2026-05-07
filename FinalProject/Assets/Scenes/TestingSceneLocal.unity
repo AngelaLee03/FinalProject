@@ -13882,6 +13882,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4723933517790142724, guid: 94df79b260a91a24392c385347054e76, type: 3}
+      propertyPath: Priority.Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5531096662968424311, guid: 94df79b260a91a24392c385347054e76, type: 3}
       propertyPath: m_Name
       value: EndPoint
