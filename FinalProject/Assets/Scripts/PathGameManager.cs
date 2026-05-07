@@ -57,7 +57,8 @@ public class PathGameManager : MonoBehaviour
     void SwitchToEndCam()
     {
         beginCam.Priority = 0;
-        followCam.Priority = 0;
+        followCam.Follow = null;
+        followCam.enabled = false;
         endCam.Priority = 10;
     }
 
