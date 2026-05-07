@@ -3,12 +3,9 @@ using System.Collections.Generic;
 
 public class PathInputController: MonoBehaviour
 {
-    private Plane drawPlane;
     private Vector3 lastPoint;
     private Vector3 worldPosition;
     public PathGameManager gameManager;
-    public float camHeight = 12f;
-    public float camSpeed = 5f;
     public float snapThreshold = 1.5f;
     public LayerMask groundMask;
     public float surfaceOffset = 0.05f;
@@ -19,8 +16,6 @@ public class PathInputController: MonoBehaviour
 
     private void Awake()
     {
-        // Plane for drawing to be visible
-        drawPlane = new Plane(Vector3.up, Vector3.zero);
         if (gameManager == null)
         {
             gameManager = FindAnyObjectByType<PathGameManager>();
@@ -130,6 +125,7 @@ public class PathInputController: MonoBehaviour
 
         Ray downRay = new Ray(new Vector3(x, point.y + 5f, z), Vector3.down);
 
+        // Ray to ensure we're hitting valid ground
         if (Physics.Raycast(downRay, out RaycastHit hit, 10f, groundMask))
         {
             return hit.point + hit.normal * surfaceOffset;
