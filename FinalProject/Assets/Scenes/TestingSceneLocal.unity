@@ -2084,7 +2084,7 @@ MonoBehaviour:
     levelBounds: {fileID: 1400141377}
     camTarget: {fileID: 1299447205}
     levelCam: {fileID: 698396652}
-  maxLives: 3
+  maxLives: 5
   currentLives: 0
   heartIcons:
   - {fileID: 1073125046}
@@ -2739,7 +2739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &431295354
 RectTransform:
   m_ObjectHideFlags: 0
