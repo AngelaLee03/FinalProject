@@ -464,6 +464,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_big.vox (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6182,6 +6190,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_big.vox
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8036,6 +8052,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_big.vox (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8800,6 +8824,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
       propertyPath: m_Name
       value: rock_big.vox (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9877,6 +9909,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: rock_big.vox (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10267,6 +10307,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
       propertyPath: m_Name
       value: rock_big.vox (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10906,6 +10954,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
       propertyPath: m_Name
       value: rock_big.vox (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13521,6 +13577,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
       propertyPath: m_Name
       value: rock_big.vox (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: a6a66faadd55e4679976716812f174e4, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
