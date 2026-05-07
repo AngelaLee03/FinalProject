@@ -26,6 +26,7 @@ public class PathGameManager : MonoBehaviour
 
     public float lifeLossCooldown = 1f;
     private float lastLifeLossTime = -999f;
+    public GameObject outOfLivesPanel;
 
     // Path system
     private List<Vector3> currentPath;
@@ -183,7 +184,7 @@ public class PathGameManager : MonoBehaviour
 
         if (currentLives <= 0)
         {
-            ResetToBeginning();
+            ShowOutOfLivesScreen();
             return;
         }
 
@@ -199,47 +200,33 @@ public class PathGameManager : MonoBehaviour
         }
     }
 
-    // Resetting player to the first part of the level
-    private void ResetToBeginning()
-    {
-        currentLives = maxLives;
-        UpdateHeartsUI();
-
-        currentPartIndex = 0;
-
-        if (levelParts.Count > 0 && levelParts[0].startPoint != null)
-        {
-            Collider startCollider = levelParts[0].startPoint.GetComponent<Collider>();
-
-            Vector3 resetPos = levelParts[0].startPoint.position;
-
-            if (startCollider != null)
-            {
-                resetPos.y = startCollider.bounds.max.y + 0.5f;
-            }
-            else
-            {
-                resetPos.y += 1f;
-            }
-
-            player.ResetToStart(resetPos);
-        }
-
-        input?.ResetPath();
-        pathRenderer?.Clear();
-
-        SetActiveLevelPart(currentPartIndex);
-
-        Debug.Log("Out of lives. Reset to beginning.");
-    }
-
-    private void GameOver()
+    // No lives left -> restart level
+    private void ShowOutOfLivesScreen()
     {
         isGameOver = true;
-        currentPartIndex = 0;
-        Debug.Log("Game Over");
+        Time.timeScale = 0f;
 
-        SetActiveLevelPart(currentPartIndex);
+        if (outOfLivesPanel != null)
+        {
+            outOfLivesPanel.SetActive(true);
+        }
+
+        Debug.Log("Out of lives. Show restart screen.");
+    }
+
+    // Resetting player to the first part of the level
+    public void RestartCurrentLevel()
+    {
+        Time.timeScale = 1f;
+        isGameOver = false;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
     
     // helper function for getting level part data
